@@ -10,11 +10,11 @@
 <body>
 <center>
 	<h1>登陆界面</h1>
-	<form action="??" method="post">
+	<form action="/shopping/gohallui" method="post">
 		<table border="1">
 			<tr>
-			<td>用户名:</td>
-			<td><input type="text" name="username"/></td>
+			<td>用户ID:</td>
+			<td><input type="text" name="id"/></td>
 			</tr>
 			<tr>
 			<td>密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>

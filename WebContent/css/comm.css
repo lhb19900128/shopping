@@ -1,0 +1,18 @@
+body{
+font-size: 12px;
+}
+
+td{
+text-align:center ;
+vertical-align:middle;   
+}
+
+input[type="text"]
+{
+  width:50px;
+  display:block;
+  margin-bottom:10px;
+  background-color:yellow;
+  font-family: Verdana, Arial;
+  text-align:center;
+}

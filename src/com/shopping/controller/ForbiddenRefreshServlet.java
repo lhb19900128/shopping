@@ -1,7 +1,6 @@
 package com.shopping.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,11 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.shopping.domain.BookBean;
-import com.shopping.service.BookService;
+import com.shopping.service.CartService;
 
-@WebServlet(name="GoHallUI",urlPatterns="/gohallui")
-public class GoHallUI extends HttpServlet{
+@WebServlet(name="ForbiddenRefreshServlet",urlPatterns="/refreshservlet")
+public class ForbiddenRefreshServlet extends HttpServlet{
 
 	/**
 	 * 
@@ -23,19 +21,18 @@ public class GoHallUI extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		resp.setContentType("text/html;charset=utf-8");
-			
-			//给下一个页面hall.jsp准备要显示的数据
-			ArrayList<BookBean> list = new BookService().getAllBook();
-			//返回数据库中的书籍给hall.jsp
-			req.setAttribute("books", list);
-			req.getRequestDispatcher("/WEB-INF/hall.jsp").forward(req, resp);
+		//把要显示的书籍放入req中
+		CartService myCart = (CartService) req.getSession().getAttribute("mycart");
+		req.setAttribute("buybooks", (Object)myCart.getAllBook());
+		req.setAttribute("totalprice",(Object)myCart.calTotalPrice());
+		req.getRequestDispatcher("/WEB-INF/shoppingcart.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(req, resp);
 	}
-	
+
 }

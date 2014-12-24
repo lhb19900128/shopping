@@ -66,8 +66,9 @@ public class SqlHelper {
 		con = new DBUtil().getConnection();
 		try {
 			stmt = (PreparedStatement)con.prepareStatement(sql);
-			stmt.setInt(1, Integer.parseInt(paras[0]));
-			stmt.setString(2, paras[1]);
+			for(int i = 0;i<paras.length;++i){
+				stmt.setString(i+1, paras[i]);
+			}
 			rs = stmt.executeQuery();
 			
 			while(rs.next()){
@@ -78,6 +79,52 @@ public class SqlHelper {
 				ub.setEmail(rs.getString(4));
 				ub.setTel(rs.getString(5));
 				ub.setGrade(rs.getInt(6));
+				list.add(ub);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				if (rs != null) {
+					rs.close();
+					rs = null;
+				}
+				if (stmt != null) {
+					stmt.close();
+					stmt = null;
+				}
+				if (con != null) {
+					con.close();
+					con = null;
+					System.out.println("database closed!");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public ArrayList<BookBean> executeBookQuery(String sql,String[] paras){
+		ArrayList<BookBean> list = new ArrayList<BookBean>();
+
+		con = new DBUtil().getConnection();
+		try {
+			stmt = (PreparedStatement)con.prepareStatement(sql);
+			for(int i = 0;i<paras.length;++i){
+				stmt.setString(i+1, paras[i]);
+			}
+			rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				BookBean ub = new BookBean();
+				ub.setId(rs.getInt(1));
+				ub.setName(rs.getString(2));
+				ub.setAuthor(rs.getString(3));
+				ub.setPublishHouse(rs.getString(4));
+				ub.setPrice(Float.parseFloat(rs.getString(5)));
+				ub.setNums(rs.getInt(6));
 				list.add(ub);
 			}
 			

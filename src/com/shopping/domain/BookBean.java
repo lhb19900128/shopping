@@ -1,12 +1,17 @@
 package com.shopping.domain;
 
-public class BookBean {
+public class BookBean implements Comparable<BookBean>{
 	private int id;
 	private String name;
 	private String author;
 	private String publishHouse;
 	private float price;
 	private int nums;
+	private int shoppingNum;
+	
+	public BookBean() {
+		shoppingNum = 1;
+	}
 	
 	public int getId() {
 		return id;
@@ -43,6 +48,21 @@ public class BookBean {
 	}
 	public void setNums(int nums) {
 		this.nums = nums;
+	}
+	public int getShoppingNum() {
+		return shoppingNum;
+	}
+	public void setShoppingNum(int shoppingNum) {
+		this.shoppingNum = shoppingNum;
+	}
+	public int hashCode(){
+		return this.shoppingNum;
+	}
+	
+	public int compareTo(BookBean book){
+		if(this.shoppingNum == book.getShoppingNum())
+			return 0;
+		return 1;
 	}
 	
 }

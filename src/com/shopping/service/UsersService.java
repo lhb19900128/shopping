@@ -9,14 +9,19 @@ import com.shopping.utils.SqlHelper;
 public class UsersService {
 	
 	//验证用户是否合法
-	public UserBean checkUser(UserBean ub){
-		UserBean result = null;
+	public boolean checkUser(UserBean ub){
+		boolean result = false;
 		String sql = "select * from users where id=? and passwd=?";
 		String paras[] = {new Integer(ub.getId()).toString(),ub.getPasswd()};
 		ArrayList<UserBean> list = new SqlHelper().executeQuery(sql, paras);
 		if(!list.isEmpty()) {
-			result = new UserBean();
-			result = list.get(0);
+			UserBean ubTemp = list.get(0);
+			ub.setName(ubTemp.getName());
+			ub.setPasswd(ubTemp.getPasswd());
+			ub.setTel(ubTemp.getTel());
+			ub.setEmail(ubTemp.getEmail());
+			ub.setGrade(ubTemp.getGrade());
+			result = true;
 		}
 		return result;
 	}

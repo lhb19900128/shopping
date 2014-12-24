@@ -10,7 +10,7 @@
 <body>
 <center>
 	<h1>登陆界面</h1>
-	<form action="/shopping/gohallui" method="post">
+	<form action="/shopping/logincheck" method="post">
 		<table border="1">
 			<tr>
 			<td>用户ID:</td>
